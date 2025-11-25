@@ -4,11 +4,21 @@
     (dateRangeChange)="onDateRangeChange($event)">
   </app-dashboard-filters>
 
-  <app-kpi-section [kpiData]="store.filteredKpiData()"></app-kpi-section>
+  <app-kpi-section
+    [kpiData]="store.filteredKpiData()"
+    [isLoading]="store.isLoadingKpi()"
+    [error]="store.kpiError()"
+    (retry)="onRetry()">
+  </app-kpi-section>
 
   <app-charts-section
     [stackedAreaData]="store.filteredStackedAreaData()"
     [valueDonutData]="store.filteredValueDonutData()"
-    [riskTierDonutData]="store.filteredRiskTierDonutData()">
+    [riskTierDonutData]="store.filteredRiskTierDonutData()"
+    [isLoadingCharts]="store.isLoadingCharts()"
+    [isLoadingDonuts]="store.isLoadingDonuts()"
+    [chartsError]="store.chartsError()"
+    [donutsError]="store.donutsError()"
+    (retry)="onRetry()">
   </app-charts-section>
 </div>

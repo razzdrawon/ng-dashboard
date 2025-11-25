@@ -1,0 +1,7 @@
+<div class="loading-container">
+  <mat-spinner [diameter]="getDiameter()"></mat-spinner>
+  @if (message()) {
+    <p class="loading-message">{{ message() }}</p>
+  }
+</div>
+

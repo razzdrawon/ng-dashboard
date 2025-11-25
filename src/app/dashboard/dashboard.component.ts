@@ -30,4 +30,8 @@ export class DashboardComponent {
   onDateRangeChange(dateRange: string): void {
     this.store.setDateRange(dateRange);
   }
+
+  onRetry(): void {
+    this.store.refreshData();
+  }
 }

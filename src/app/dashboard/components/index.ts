@@ -5,3 +5,5 @@ export * from './donut-chart/donut-chart.component';
 export * from './dashboard-filters/dashboard-filters.component';
 export * from './kpi-section/kpi-section.component';
 export * from './charts-section/charts-section.component';
+export * from './loading-spinner/loading-spinner.component';
+export * from './error-message/error-message.component';

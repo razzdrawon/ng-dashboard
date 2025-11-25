@@ -27,6 +27,16 @@ export class DashboardStore {
   private _valueDonutData = signal<DonutChartSegment[]>([]);
   private _riskTierDonutData = signal<DonutChartSegment[]>([]);
 
+  // Loading states
+  private _isLoadingKpi = signal<boolean>(false);
+  private _isLoadingCharts = signal<boolean>(false);
+  private _isLoadingDonuts = signal<boolean>(false);
+
+  // Error states
+  private _kpiError = signal<string | null>(null);
+  private _chartsError = signal<string | null>(null);
+  private _donutsError = signal<string | null>(null);
+
   // Available options signals
   private _organizations = signal<string[]>(ORGANIZATIONS);
   private _dateRanges = signal<string[]>(DATE_RANGES);
@@ -40,6 +50,22 @@ export class DashboardStore {
   readonly riskTierDonutData = this._riskTierDonutData.asReadonly();
   readonly organizations = this._organizations.asReadonly();
   readonly dateRanges = this._dateRanges.asReadonly();
+
+  // Loading signals
+  readonly isLoadingKpi = this._isLoadingKpi.asReadonly();
+  readonly isLoadingCharts = this._isLoadingCharts.asReadonly();
+  readonly isLoadingDonuts = this._isLoadingDonuts.asReadonly();
+  readonly isLoading = computed(() => 
+    this._isLoadingKpi() || this._isLoadingCharts() || this._isLoadingDonuts()
+  );
+
+  // Error signals
+  readonly kpiError = this._kpiError.asReadonly();
+  readonly chartsError = this._chartsError.asReadonly();
+  readonly donutsError = this._donutsError.asReadonly();
+  readonly hasError = computed(() => 
+    !!this._kpiError() || !!this._chartsError() || !!this._donutsError()
+  );
 
   // Computed signals for filtered data
   readonly filteredKpiData = computed(() => {
@@ -107,25 +133,73 @@ export class DashboardStore {
   }
 
   loadInitialData(): void {
-    this.dataService.getKpiData().subscribe(data => {
-      this._kpiData.set(data);
+    this._kpiError.set(null);
+    this._chartsError.set(null);
+    this._donutsError.set(null);
+
+    // Load KPI data
+    this._isLoadingKpi.set(true);
+    this.dataService.getKpiData().subscribe({
+      next: (data) => {
+        this._kpiData.set(data);
+        this._isLoadingKpi.set(false);
+      },
+      error: (error) => {
+        this._kpiError.set(error.message || 'Failed to load KPI data');
+        this._isLoadingKpi.set(false);
+        console.error('Error loading KPI data:', error);
+      }
     });
 
-    this.dataService.getStackedAreaChartData().subscribe(data => {
-      this._stackedAreaData.set(data);
+    // Load chart data
+    this._isLoadingCharts.set(true);
+    this.dataService.getStackedAreaChartData().subscribe({
+      next: (data) => {
+        this._stackedAreaData.set(data);
+        this._isLoadingCharts.set(false);
+      },
+      error: (error) => {
+        this._chartsError.set(error.message || 'Failed to load chart data');
+        this._isLoadingCharts.set(false);
+        console.error('Error loading chart data:', error);
+      }
     });
 
-    this.dataService.getValueDonutData().subscribe(data => {
-      this._valueDonutData.set(data);
+    // Load donut data
+    this._isLoadingDonuts.set(true);
+    this.dataService.getValueDonutData().subscribe({
+      next: (data) => {
+        this._valueDonutData.set(data);
+        this._isLoadingDonuts.set(false);
+      },
+      error: (error) => {
+        this._donutsError.set(error.message || 'Failed to load value donut data');
+        this._isLoadingDonuts.set(false);
+        console.error('Error loading value donut data:', error);
+      }
     });
 
-    this.dataService.getRiskTierDonutData().subscribe(data => {
-      this._riskTierDonutData.set(data);
+    this.dataService.getRiskTierDonutData().subscribe({
+      next: (data) => {
+        this._riskTierDonutData.set(data);
+        this._isLoadingDonuts.set(false);
+      },
+      error: (error) => {
+        this._donutsError.set(error.message || 'Failed to load risk tier donut data');
+        this._isLoadingDonuts.set(false);
+        console.error('Error loading risk tier donut data:', error);
+      }
     });
   }
 
   refreshData(): void {
     this.loadInitialData();
+  }
+
+  clearErrors(): void {
+    this._kpiError.set(null);
+    this._chartsError.set(null);
+    this._donutsError.set(null);
   }
 
   // Filter methods

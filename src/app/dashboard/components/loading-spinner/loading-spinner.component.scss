@@ -1,0 +1,21 @@
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  gap: 16px;
+}
+
+.loading-message {
+  color: #94A3B8;
+  font-size: 14px;
+  margin: 0;
+}
+
+::ng-deep {
+  .mat-mdc-progress-spinner {
+    --mdc-circular-progress-active-indicator-color: #3B82F6;
+  }
+}
+

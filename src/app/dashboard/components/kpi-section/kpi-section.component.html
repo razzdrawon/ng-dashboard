@@ -1,13 +1,22 @@
-<div class="kpi-section">
-  @for (kpi of kpiData(); track kpi.title) {
-    <app-kpi-card
-      [title]="kpi.title"
-      [value]="kpi.value"
-      [change]="kpi.change ?? 0"
-      [changeLabel]="kpi.changeLabel ?? undefined"
-      [description]="kpi.description ?? undefined"
-      [icon]="kpi.icon ?? undefined">
-    </app-kpi-card>
-  }
-</div>
+@if (isLoading()) {
+  <app-loading-spinner message="Loading KPI data..." />
+} @else if (error()) {
+  <app-error-message
+    [message]="error()!"
+    [showRetry]="true"
+    (retry)="retry.emit()" />
+} @else {
+  <div class="kpi-section">
+    @for (kpi of kpiData(); track kpi.title) {
+      <app-kpi-card
+        [title]="kpi.title"
+        [value]="kpi.value"
+        [change]="kpi.change ?? 0"
+        [changeLabel]="kpi.changeLabel ?? undefined"
+        [description]="kpi.description ?? undefined"
+        [icon]="kpi.icon ?? undefined">
+      </app-kpi-card>
+    }
+  </div>
+}
 

@@ -1,28 +1,58 @@
 <!-- Stacked Area Chart -->
-<mat-card class="chart-container">
-  <app-line-chart
-    [data]="stackedAreaData()"
-    [title]="'USECASE DEVELOPMENT OVER TIME'"
-    [subtitle]="'Usecases deployed by Business Unit'"
-    [height]="300">
-  </app-line-chart>
-</mat-card>
+@if (isLoadingCharts()) {
+  <mat-card class="chart-container">
+    <app-loading-spinner message="Loading chart data..." />
+  </mat-card>
+} @else if (chartsError()) {
+  <mat-card class="chart-container">
+    <app-error-message
+      [message]="chartsError()!"
+      [showRetry]="true"
+      (retry)="retry.emit()" />
+  </mat-card>
+} @else {
+  <mat-card class="chart-container">
+    <app-line-chart
+      [data]="stackedAreaData()"
+      [title]="'USECASE DEVELOPMENT OVER TIME'"
+      [subtitle]="'Usecases deployed by Business Unit'"
+      [height]="300">
+    </app-line-chart>
+  </mat-card>
+}
 
 <!-- Donut Charts Section -->
-<div class="donut-charts-section">
-  <mat-card class="donut-chart-item">
-    <app-donut-chart
-      [data]="valueDonutData()"
-      [title]="'USECASES BY VALUE'"
-      [height]="280">
-    </app-donut-chart>
-  </mat-card>
-  <mat-card class="donut-chart-item">
-    <app-donut-chart
-      [data]="riskTierDonutData()"
-      [title]="'USECASES BY RISK TIER'"
-      [height]="280">
-    </app-donut-chart>
-  </mat-card>
-</div>
+@if (isLoadingDonuts()) {
+  <div class="donut-charts-section">
+    <mat-card class="donut-chart-item">
+      <app-loading-spinner message="Loading donut charts..." />
+    </mat-card>
+  </div>
+} @else if (donutsError()) {
+  <div class="donut-charts-section">
+    <mat-card class="donut-chart-item">
+      <app-error-message
+        [message]="donutsError()!"
+        [showRetry]="true"
+        (retry)="retry.emit()" />
+    </mat-card>
+  </div>
+} @else {
+  <div class="donut-charts-section">
+    <mat-card class="donut-chart-item">
+      <app-donut-chart
+        [data]="valueDonutData()"
+        [title]="'USECASES BY VALUE'"
+        [height]="280">
+      </app-donut-chart>
+    </mat-card>
+    <mat-card class="donut-chart-item">
+      <app-donut-chart
+        [data]="riskTierDonutData()"
+        [title]="'USECASES BY RISK TIER'"
+        [height]="280">
+      </app-donut-chart>
+    </mat-card>
+  </div>
+}
 
