@@ -1,4 +1,4 @@
-import { Component, input, computed, effect, ChangeDetectorRef } from '@angular/core';
+import { Component, input, computed, effect, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
@@ -9,7 +9,8 @@ import { StackedAreaData } from '../../models/dashboard.models';
   standalone: true,
   imports: [CommonModule, BaseChartDirective],
   templateUrl: './line-chart.component.html',
-  styleUrl: './line-chart.component.scss'
+  styleUrl: './line-chart.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LineChartComponent {
   data = input.required<StackedAreaData[]>();

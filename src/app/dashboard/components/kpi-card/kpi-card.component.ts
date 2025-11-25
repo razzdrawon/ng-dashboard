@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 
@@ -7,7 +7,8 @@ import { MatCardModule } from '@angular/material/card';
   standalone: true,
   imports: [CommonModule, MatCardModule],
   templateUrl: './kpi-card.component.html',
-  styleUrl: './kpi-card.component.scss'
+  styleUrl: './kpi-card.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class KpiCardComponent {
   title = input.required<string>();

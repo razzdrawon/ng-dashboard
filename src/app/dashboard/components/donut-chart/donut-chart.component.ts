@@ -1,4 +1,4 @@
-import { Component, input, computed } from '@angular/core';
+import { Component, input, computed, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
@@ -9,7 +9,8 @@ import { DonutChartSegment } from '../../models/dashboard.models';
   standalone: true,
   imports: [CommonModule, BaseChartDirective],
   templateUrl: './donut-chart.component.html',
-  styleUrl: './donut-chart.component.scss'
+  styleUrl: './donut-chart.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DonutChartComponent {
   data = input.required<DonutChartSegment[]>();
