@@ -1,6 +1,6 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": "dist/ng-dashboard",
+  "outputDirectory": "dist/ng-dashboard/browser",
   "rewrites": [
     {
       "source": "/(.*)",
