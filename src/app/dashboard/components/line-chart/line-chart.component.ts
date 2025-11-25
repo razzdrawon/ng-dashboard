@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 export interface ChartDataPoint {
   label: string;
@@ -7,9 +8,10 @@ export interface ChartDataPoint {
 
 @Component({
   selector: 'app-line-chart',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './line-chart.component.html',
-  styleUrl: './line-chart.component.scss',
-  standalone: false
+  styleUrl: './line-chart.component.scss'
 })
 export class LineChartComponent {
   @Input() data: ChartDataPoint[] = [];
