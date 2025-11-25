@@ -1,172 +1,172 @@
 # NgDashboard
 
-Dashboard empresarial moderno construido con Angular 21, diseñado para visualizar métricas clave de negocio, casos de uso y análisis de riesgos con una arquitectura limpia y lista para producción.
+Modern enterprise dashboard built with Angular 21, designed to visualize key business metrics, use cases, and risk analysis with a clean, production-ready architecture.
 
-## 🚀 Características
+## 🚀 Features
 
-### Stack Tecnológico
+### Tech Stack
 
-- **Angular**: `^21.0.0` - Framework con Signals reactivos
-- **Angular Material**: `^21.0.0` - Componentes UI modernos
-- **Chart.js**: `^4.5.1` + **ng2-charts**: `^8.0.0` - Visualización de datos
-- **RxJS**: `~7.8.0` - Programación reactiva
-- **TypeScript**: `~5.9.2` - Tipado estático
-- **Vitest**: `^4.0.8` - Testing moderno
+- **Angular**: `^21.0.0` - Framework with reactive Signals
+- **Angular Material**: `^21.0.0` - Modern UI components
+- **Chart.js**: `^4.5.1` + **ng2-charts**: `^8.0.0` - Data visualization
+- **RxJS**: `~7.8.0` - Reactive programming
+- **TypeScript**: `~5.9.2` - Static typing
+- **Vitest**: `^4.0.8` - Modern testing
 
-### Funcionalidades
+### Functionality
 
-- 📊 Visualización de KPIs con indicadores de cambio
-- 📈 Gráficos interactivos (área apilada, dona) con filtros dinámicos
-- 🔍 Filtrado por organización y rango de fechas
-- ⚡ Optimización de rendimiento con OnPush y Signals
-- 🎨 UI moderna con Angular Material y tema personalizable
+- 📊 KPI visualization with change indicators
+- 📈 Interactive charts (stacked area, donut) with dynamic filters
+- 🔍 Filtering by organization and date range
+- ⚡ Performance optimization with OnPush and Signals
+- 🎨 Modern UI with Angular Material and customizable theme
 
-## 🛠️ Instalación y Uso
+## 🛠️ Installation and Usage
 
 ```bash
-# Instalación
+# Installation
 npm install
 
-# Desarrollo
+# Development
 npm start
 
-# Build producción
+# Production build
 npm run build
 
 # Tests
 npm test
 ```
 
-## 🏗️ Arquitectura
+## 🏗️ Architecture
 
 ```
 src/app/dashboard/
-├── components/     # Componentes reutilizables y modulares
-├── constants/     # Configuración centralizada
-├── models/        # Interfaces TypeScript
-├── services/      # Lógica de datos
-└── store/         # Estado global con Signals
+├── components/     # Reusable and modular components
+├── constants/     # Centralized configuration
+├── models/        # TypeScript interfaces
+├── services/      # Data logic
+└── store/         # Global state with Signals
 ```
 
-## 🎯 Evolución y Mejoras Implementadas
+## 🎯 Evolution and Implemented Improvements
 
-Este proyecto evolucionó desde una implementación inicial hasta un código de producción siguiendo las mejores prácticas de Angular. A continuación se destacan las mejoras clave identificadas e implementadas:
+This project evolved from an initial implementation to production-ready code following Angular best practices. Below are the key improvements identified and implemented:
 
-### ✨ Mejoras Principales
+### ✨ Main Improvements
 
-#### 1. **Migración a Signals de Angular 21**
-   - Refactorización completa de estado reactivo usando Signals
-   - DashboardStore centralizado con computed signals para transformaciones optimizadas
-   - Eliminación de suscripciones RxJS manuales en favor de reactividad automática
+#### 1. **Migration to Angular 21 Signals**
+   - Complete refactoring of reactive state using Signals
+   - Centralized DashboardStore with computed signals for optimized transformations
+   - Elimination of manual RxJS subscriptions in favor of automatic reactivity
 
-#### 2. **Optimización de Performance con OnPush**
-   - Implementación de `ChangeDetectionStrategy.OnPush` en todos los componentes
-   - Reducción significativa de ciclos de detección de cambios
-   - Combinación de OnPush + Signals para máximo rendimiento
+#### 2. **Performance Optimization with OnPush**
+   - Implementation of `ChangeDetectionStrategy.OnPush` in all components
+   - Significant reduction in change detection cycles
+   - Combination of OnPush + Signals for maximum performance
 
-#### 3. **Arquitectura Modular y Separación de Concerns**
-   - Extracción de componentes especializados (DashboardFilters, KpiSection, ChartsSection)
-   - Reducción del DashboardComponent de 69 a 15 líneas en template
-   - Separación clara: Store (estado) → Servicios (datos) → Componentes (presentación)
+#### 3. **Modular Architecture and Separation of Concerns**
+   - Extraction of specialized components (DashboardFilters, KpiSection, ChartsSection)
+   - Reduction of DashboardComponent from 69 to 15 lines in template
+   - Clear separation: Store (state) → Services (data) → Components (presentation)
 
-#### 4. **Centralización y Organización**
-   - Creación de directorio `models/` para todas las interfaces TypeScript
-   - Directorio `constants/` para configuración centralizada
-   - Barrel exports (`index.ts`) para imports más limpios
-   - Uso de `inject()` en lugar de constructor injection
+#### 4. **Centralization and Organization**
+   - Creation of `models/` directory for all TypeScript interfaces
+   - `constants/` directory for centralized configuration
+   - Barrel exports (`index.ts`) for cleaner imports
+   - Use of `inject()` instead of constructor injection
 
-#### 5. **Manejo Robusto de Estados**
-   - Estados de carga granulares por sección (KPI, Charts, Donuts)
-   - Manejo de errores independiente por sección
-   - Componentes reutilizables: `LoadingSpinnerComponent` y `ErrorMessageComponent`
-   - Funcionalidad de retry sin recargar la página
+#### 5. **Robust State Management**
+   - Granular loading states per section (KPI, Charts, Donuts)
+   - Independent error handling per section
+   - Reusable components: `LoadingSpinnerComponent` and `ErrorMessageComponent`
+   - Retry functionality without page reload
 
-#### 6. **Type Safety y Mantenibilidad**
-   - Tipado estricto en toda la aplicación
-   - Interfaces TypeScript para todos los modelos
-   - Eliminación de valores hardcodeados en favor de constantes
-   - Código autodocumentado y fácil de mantener
+#### 6. **Type Safety and Maintainability**
+   - Strict typing throughout the application
+   - TypeScript interfaces for all models
+   - Elimination of hardcoded values in favor of constants
+   - Self-documenting and easy-to-maintain code
 
-#### 7. **Suite de Tests Comprehensiva**
-   - 46 tests unitarios implementados y pasando
-   - Cobertura completa de componentes, servicios y store
-   - Tests con Vitest y Angular TestBed
-   - Mocks y spies para aislamiento de pruebas
-   - Tests asíncronos para operaciones RxJS
+#### 7. **Comprehensive Test Suite**
+   - 46 unit tests implemented and passing
+   - Complete coverage of components, services, and store
+   - Tests with Vitest and Angular TestBed
+   - Mocks and spies for test isolation
+   - Async tests for RxJS operations
 
-### 📊 Resultados
+### 📊 Results
 
-- **Rendimiento**: Mejora significativa con OnPush y Signals
-- **Mantenibilidad**: Código modular y fácil de extender
-- **UX**: Estados de carga y error claros para el usuario
-- **Escalabilidad**: Arquitectura preparada para crecimiento
-- **Calidad**: Type safety completo y mejores prácticas aplicadas
+- **Performance**: Significant improvement with OnPush and Signals
+- **Maintainability**: Modular code that's easy to extend
+- **UX**: Clear loading and error states for users
+- **Scalability**: Architecture prepared for growth
+- **Quality**: Complete type safety and best practices applied
 
 ## 🧪 Testing
 
-### Suite de Tests
+### Test Suite
 
-El proyecto incluye una suite completa de tests unitarios con **46 tests pasando** que cubren:
+The project includes a complete unit test suite with **46 passing tests** covering:
 
 - **DashboardStore** (14 tests)
-  - Inicialización y carga de datos
-  - Acciones de filtrado (organización, rango de fechas)
-  - Manejo de estados de carga y errores
-  - Computación de datos filtrados
-  - Funcionalidad de refresh y limpieza de errores
+  - Initialization and data loading
+  - Filter actions (organization, date range)
+  - Loading and error state handling
+  - Filtered data computation
+  - Refresh functionality and error clearing
 
 - **DashboardDataService** (9 tests)
-  - Validación de estructura de datos retornados
-  - Verificación de tipos Observable
-  - Validación de propiedades requeridas
+  - Returned data structure validation
+  - Observable type verification
+  - Required property validation
 
-- **Componentes** (23 tests)
-  - `DashboardComponent`: Manejo de eventos y comunicación con store
-  - `KpiCardComponent`: Inputs signals y valores por defecto
-  - `LoadingSpinnerComponent`: Mensajes y tamaños configurables
-  - `ErrorMessageComponent`: Visualización de errores y retry
+- **Components** (23 tests)
+  - `DashboardComponent`: Event handling and store communication
+  - `KpiCardComponent`: Signal inputs and default values
+  - `LoadingSpinnerComponent`: Configurable messages and sizes
+  - `ErrorMessageComponent`: Error display and retry
 
-### Ejecutar Tests
+### Running Tests
 
 ```bash
-# Ejecutar todos los tests
+# Run all tests
 npm test
 
-# Ejecutar tests en modo watch (desarrollo)
+# Run tests in watch mode (development)
 npm test -- --watch
 
-# Ejecutar tests con cobertura
+# Run tests with coverage
 npm test -- --coverage
 ```
 
-### Framework de Testing
+### Testing Framework
 
-- **Vitest**: Framework moderno y rápido para testing
-- **Angular TestBed**: Para configuración de componentes y servicios
-- **Mocks con vi.fn()**: Para aislamiento de dependencias
-- **Async/Await**: Para manejo de operaciones asíncronas
+- **Vitest**: Modern and fast testing framework
+- **Angular TestBed**: For component and service configuration
+- **Mocks with vi.fn()**: For dependency isolation
+- **Async/Await**: For handling asynchronous operations
 
-### Cobertura Actual
+### Current Coverage
 
-- ✅ Store y estado (DashboardStore)
-- ✅ Servicios de datos (DashboardDataService)
-- ✅ Componentes principales (Dashboard, KPI Card, Loading, Error)
-- ✅ Signals e inputs reactivos
-- ✅ Manejo de errores y estados de carga
+- ✅ Store and state (DashboardStore)
+- ✅ Data services (DashboardDataService)
+- ✅ Main components (Dashboard, KPI Card, Loading, Error)
+- ✅ Reactive signals and inputs
+- ✅ Error handling and loading states
 
 ## 📝 Scripts
 
-- `npm start` - Servidor de desarrollo
-- `npm run build` - Build producción
-- `npm run watch` - Build en modo watch
-- `npm test` - Ejecutar suite de tests unitarios
+- `npm start` - Development server
+- `npm run build` - Production build
+- `npm run watch` - Build in watch mode
+- `npm test` - Run unit test suite
 
-## 📦 Estructura de Datos
+## 📦 Data Structure
 
-- **KPIs**: Total Usecases, Producción, Deployment Times, Riesgos Críticos
-- **Gráficos**: Stacked Area (por región), Donut Charts (valor y riesgo)
-- **Filtros**: Organización (All, A, B, C) y Rango de fechas (3, 6, 12 meses, año actual)
+- **KPIs**: Total Usecases, Production, Deployment Times, Critical Risks
+- **Charts**: Stacked Area (by region), Donut Charts (value and risk)
+- **Filters**: Organization (All, A, B, C) and Date Range (3, 6, 12 months, current year)
 
 ---
 
-**Desarrollado con las mejores prácticas de Angular 21 y arquitectura moderna**
+**Developed with Angular 21 best practices and modern architecture**
