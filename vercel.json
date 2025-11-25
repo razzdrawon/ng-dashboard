@@ -1,9 +1,12 @@
 {
+  "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": "dist/ng-dashboard",
+  "installCommand": "npm install",
+  "framework": null,
   "rewrites": [
     {
-      "source": "**",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
