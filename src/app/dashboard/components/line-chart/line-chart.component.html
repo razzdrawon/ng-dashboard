@@ -5,20 +5,17 @@
       <p class="chart-subtitle">{{ subtitle() }}</p>
     }
   </div>
-  <div class="chart-placeholder" [style.height.px]="height()">
-    <div class="chart-info">
-      <p>Stacked Area Chart</p>
-      <p class="chart-note">Chart visualization will be implemented with a charting library</p>
-      @if (data().length > 0) {
-        <div class="chart-legend">
-          @for (unit of businessUnits(); track unit) {
-            <div class="legend-item">
-              <span class="legend-color" [style.background-color]="getColor(unit)"></span>
-              <span>{{ unit }}</span>
-            </div>
-          }
-        </div>
-      }
-    </div>
+  <div class="chart-wrapper" [style.height.px]="height()">
+    @if (chartData().labels && chartData().labels!.length > 0) {
+      <canvas
+        baseChart
+        [data]="chartData()"
+        [options]="chartOptions"
+        [legend]="chartLegend"
+        [type]="chartType">
+      </canvas>
+    } @else {
+      <div class="no-data-message">No data available</div>
+    }
   </div>
 </div>

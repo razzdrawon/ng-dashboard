@@ -1,11 +1,14 @@
 <div class="donut-chart-container">
   <h3 class="chart-title">{{ title() }}</h3>
   <div class="chart-content">
-    <div class="chart-placeholder" [style.height.px]="height()">
-      <div class="chart-info">
-        <p>Donut Chart</p>
-        <p class="chart-note">Chart visualization will be implemented with a charting library</p>
-      </div>
+    <div class="chart-wrapper" [style.height.px]="height()">
+      <canvas
+        baseChart
+        [data]="chartData()"
+        [options]="chartOptions"
+        [legend]="chartLegend"
+        [type]="chartType">
+      </canvas>
     </div>
     @if (data().length > 0) {
       <div class="chart-legend">

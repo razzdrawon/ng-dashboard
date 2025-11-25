@@ -17,28 +17,9 @@
   gap: 24px;
 }
 
-.chart-placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #0F172A;
-  border-radius: 4px;
-  border: 1px solid #334155;
-  min-height: 250px;
-}
-
-.chart-info {
-  text-align: center;
-  color: #64748B;
-
-  p {
-    margin: 8px 0;
-  }
-}
-
-.chart-note {
-  font-size: 12px;
-  color: #475569;
+.chart-wrapper {
+  width: 100%;
+  position: relative;
 }
 
 .chart-legend {

@@ -21,49 +21,17 @@
   margin: 0;
 }
 
-.chart-placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #0F172A;
-  border-radius: 4px;
-  border: 1px solid #334155;
+.chart-wrapper {
+  width: 100%;
+  position: relative;
   min-height: 300px;
 }
 
-.chart-info {
-  text-align: center;
-  color: #64748B;
-
-  p {
-    margin: 8px 0;
-  }
-}
-
-.chart-note {
-  font-size: 12px;
-  color: #475569;
-}
-
-.chart-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
-  margin-top: 24px;
-}
-
-.legend-item {
+.no-data-message {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 12px;
+  justify-content: center;
+  height: 100%;
   color: #94A3B8;
-}
-
-.legend-color {
-  width: 12px;
-  height: 12px;
-  border-radius: 2px;
-  display: inline-block;
+  font-size: 14px;
 }
