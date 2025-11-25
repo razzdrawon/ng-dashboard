@@ -49,7 +49,6 @@ export class DashboardStore {
       return data;
     }
     
-    // Apply organization filter logic here
     return this.applyOrganizationFilter(data, org);
   });
 
@@ -58,16 +57,15 @@ export class DashboardStore {
     const org = this._selectedOrganization();
     const dateRange = this._selectedDateRange();
     
-    if (org === 'All Organization' && dateRange === 'Last 6 months (6 May 2025 - 6 Nov 2025)') {
-      return data;
-    }
+    let filtered = [...data];
     
-    // Apply filters
-    let filtered = data;
+    // Apply date range filter first
+    filtered = this.applyDateRangeFilter(filtered, dateRange);
+    
+    // Then apply organization filter
     if (org !== 'All Organization') {
       filtered = this.applyOrganizationFilterToStackedData(filtered, org);
     }
-    filtered = this.applyDateRangeFilter(filtered, dateRange);
     
     return filtered;
   });
@@ -131,21 +129,42 @@ export class DashboardStore {
 
   // Filter methods
   private applyOrganizationFilter(data: KpiData[], org: string): KpiData[] {
-    // Example: Modify values based on organization
-    // In a real app, this would filter from the API
-    return data.map(kpi => ({
-      ...kpi,
-      value: this.adjustValueForOrganization(kpi.value, org)
-    }));
+    // Different values for different organizations to make changes visible
+    const orgMultipliers: { [key: string]: number } = {
+      'Organization A': 0.6,
+      'Organization B': 0.75,
+      'Organization C': 0.9
+    };
+    
+    const multiplier = orgMultipliers[org] || 1;
+    
+    return data.map((kpi, index) => {
+      const baseValue = typeof kpi.value === 'string' ? parseInt(kpi.value) : kpi.value;
+      const newValue = Math.round(Number(baseValue) * multiplier);
+      
+      return {
+        ...kpi,
+        value: newValue.toString(),
+        change: kpi.change ? Math.round(kpi.change * multiplier) : undefined
+      };
+    });
   }
 
   private applyOrganizationFilterToStackedData(data: StackedAreaData[], org: string): StackedAreaData[] {
-    // Example: Scale down data for specific organizations
+    // Different multipliers for different organizations
+    const orgMultipliers: { [key: string]: number } = {
+      'Organization A': 0.5,
+      'Organization B': 0.65,
+      'Organization C': 0.8
+    };
+    
+    const multiplier = orgMultipliers[org] || 1;
+    
     return data.map(item => {
       const adjusted: StackedAreaData = { month: item.month };
       Object.keys(item).forEach(key => {
         if (key !== 'month') {
-          adjusted[key] = Number(item[key]) * 0.8; // Example adjustment
+          adjusted[key] = Math.round(Number(item[key]) * multiplier);
         }
       });
       return adjusted;
@@ -153,29 +172,32 @@ export class DashboardStore {
   }
 
   private applyDateRangeFilter(data: StackedAreaData[], dateRange: string): StackedAreaData[] {
-    // Example: Filter by date range
+    // Filter by date range - more visible changes
     if (dateRange.includes('3 months')) {
-      return data.slice(-3); // Last 3 months
+      return data.slice(-3); // Last 3 months (SEP, OCT, NOV)
     } else if (dateRange.includes('12 months')) {
-      return data; // All data
+      // For 12 months, we'd need more data, but for now return all
+      return data;
     } else if (dateRange.includes('This year')) {
       return data; // All data
     }
-    return data; // Default: 6 months
+    // Default: 6 months (all data we have)
+    return data;
   }
 
   private applyOrganizationFilterToDonutData(data: DonutChartSegment[], org: string): DonutChartSegment[] {
-    // Example: Adjust values for specific organization
+    // Different multipliers for different organizations
+    const orgMultipliers: { [key: string]: number } = {
+      'Organization A': 0.55,
+      'Organization B': 0.7,
+      'Organization C': 0.85
+    };
+    
+    const multiplier = orgMultipliers[org] || 1;
+    
     return data.map(segment => ({
       ...segment,
-      value: Math.round(Number(segment.value) * 0.9) // Example adjustment
+      value: Math.round(Number(segment.value) * multiplier)
     }));
   }
-
-  private adjustValueForOrganization(value: string | number, org: string): string | number {
-    // Example: Adjust KPI values based on organization
-    const numValue = typeof value === 'string' ? parseInt(value) : value;
-    return Math.round(numValue * 0.85).toString();
-  }
 }
-

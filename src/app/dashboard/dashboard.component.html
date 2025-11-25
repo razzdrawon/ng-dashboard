@@ -23,12 +23,6 @@
     </div>
   </div>
 
-  <!-- Main Title -->
-  <div class="main-title">
-    <h1>{{ store.selectedOrganization() }}</h1>
-    <span class="dropdown-arrow">▼</span>
-  </div>
-
   <!-- KPI Cards Section -->
   <div class="kpi-section">
     @for (kpi of store.filteredKpiData(); track kpi.title) {
