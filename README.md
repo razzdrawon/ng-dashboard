@@ -1,3 +1,16 @@
+# Ricardo's Summary for ngDashboard assignment
+
+I built this project using Cursor AI, where I started creating the new project and Github repo, describing initial goals like technology and versions to use.
+
+Once the basic templated was generated, I started adding folders and basic empty classes to define the structure of the code.
+
+Then I started adding every part that I saw as new feature in the exercise screen, as adding the cards for the KPIs, cards for the charts and the drop-down for filters
+
+During every iteration of adding these features, I was validating by looking at the generated code and generated output by running the project. So that way I started adjusting the approach taken, I figured out some ngModules in the project, so I ask to change and use standalone, or reducing @Inputs by using a signals based states (I also considered and evaluated if using NgRx was needed or better for this project but it was not the case). 
+
+When running project I made sure it looked like what I was expecting, and in those iterations multiple times I had to ask to adjust data, sizes, or change the libraries used, like implementing angular material and ng2-charts. Iterations continued till I also evaluated performance and testing and so on… 
+
+
 # NgDashboard
 
 Modern enterprise dashboard built with Angular 21, designed to visualize key business metrics, use cases, and risk analysis with a clean, production-ready architecture.
