@@ -1,24 +1,20 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCardModule } from '@angular/material/card';
 import { DashboardStore } from './store/dashboard.store';
-import { KpiCardComponent, LineChartComponent, DonutChartComponent } from './components';
+import {
+  DashboardFiltersComponent,
+  KpiSectionComponent,
+  ChartsSectionComponent
+} from './components';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    MatCardModule,
-    KpiCardComponent,
-    LineChartComponent,
-    DonutChartComponent
+    DashboardFiltersComponent,
+    KpiSectionComponent,
+    ChartsSectionComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',

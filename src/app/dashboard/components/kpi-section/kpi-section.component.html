@@ -1,0 +1,13 @@
+<div class="kpi-section">
+  @for (kpi of kpiData(); track kpi.title) {
+    <app-kpi-card
+      [title]="kpi.title"
+      [value]="kpi.value"
+      [change]="kpi.change ?? 0"
+      [changeLabel]="kpi.changeLabel ?? undefined"
+      [description]="kpi.description ?? undefined"
+      [icon]="kpi.icon ?? undefined">
+    </app-kpi-card>
+  }
+</div>
+

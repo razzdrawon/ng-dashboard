@@ -1,0 +1,24 @@
+<div class="dashboard-header">
+  <mat-form-field appearance="outline" class="header-filter">
+    <mat-label>Display by Organization</mat-label>
+    <mat-select 
+      [value]="store.selectedOrganization()"
+      (selectionChange)="onOrganizationChange($event.value)">
+      @for (org of store.organizations(); track org) {
+        <mat-option [value]="org">{{ org }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  
+  <mat-form-field appearance="outline" class="header-filter">
+    <mat-label>Date Range</mat-label>
+    <mat-select 
+      [value]="store.selectedDateRange()"
+      (selectionChange)="onDateRangeChange($event.value)">
+      @for (range of store.dateRanges(); track range) {
+        <mat-option [value]="range">{{ range }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div>
+

@@ -1,0 +1,28 @@
+<!-- Stacked Area Chart -->
+<mat-card class="chart-container">
+  <app-line-chart
+    [data]="stackedAreaData()"
+    [title]="'USECASE DEVELOPMENT OVER TIME'"
+    [subtitle]="'Usecases deployed by Business Unit'"
+    [height]="300">
+  </app-line-chart>
+</mat-card>
+
+<!-- Donut Charts Section -->
+<div class="donut-charts-section">
+  <mat-card class="donut-chart-item">
+    <app-donut-chart
+      [data]="valueDonutData()"
+      [title]="'USECASES BY VALUE'"
+      [height]="280">
+    </app-donut-chart>
+  </mat-card>
+  <mat-card class="donut-chart-item">
+    <app-donut-chart
+      [data]="riskTierDonutData()"
+      [title]="'USECASES BY RISK TIER'"
+      [height]="280">
+    </app-donut-chart>
+  </mat-card>
+</div>
+

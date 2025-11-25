@@ -1,68 +1,14 @@
 <div class="dashboard-container">
-  <!-- Header Bar -->
-  <div class="dashboard-header">
-    <mat-form-field appearance="outline" class="header-filter">
-      <mat-label>Display by Organization</mat-label>
-      <mat-select 
-        [value]="store.selectedOrganization()"
-        (selectionChange)="onOrganizationChange($event.value)">
-        @for (org of store.organizations(); track org) {
-          <mat-option [value]="org">{{ org }}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
-    
-    <mat-form-field appearance="outline" class="header-filter">
-      <mat-label>Date Range</mat-label>
-      <mat-select 
-        [value]="store.selectedDateRange()"
-        (selectionChange)="onDateRangeChange($event.value)">
-        @for (range of store.dateRanges(); track range) {
-          <mat-option [value]="range">{{ range }}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
-  </div>
+  <app-dashboard-filters
+    (organizationChange)="onOrganizationChange($event)"
+    (dateRangeChange)="onDateRangeChange($event)">
+  </app-dashboard-filters>
 
-  <!-- KPI Cards Section -->
-  <div class="kpi-section">
-    @for (kpi of store.filteredKpiData(); track kpi.title) {
-      <app-kpi-card
-        [title]="kpi.title"
-        [value]="kpi.value"
-        [change]="kpi.change ?? 0"
-        [changeLabel]="kpi.changeLabel ?? undefined"
-        [description]="kpi.description ?? undefined"
-        [icon]="kpi.icon ?? undefined">
-      </app-kpi-card>
-    }
-  </div>
+  <app-kpi-section [kpiData]="store.filteredKpiData()"></app-kpi-section>
 
-  <!-- Stacked Area Chart -->
-  <mat-card class="chart-container">
-    <app-line-chart
-      [data]="store.filteredStackedAreaData()"
-      [title]="'USECASE DEVELOPMENT OVER TIME'"
-      [subtitle]="'Usecases deployed by Business Unit'"
-      [height]="300">
-    </app-line-chart>
-  </mat-card>
-
-  <!-- Donut Charts Section -->
-  <div class="donut-charts-section">
-    <mat-card class="donut-chart-item">
-      <app-donut-chart
-        [data]="store.filteredValueDonutData()"
-        [title]="'USECASES BY VALUE'"
-        [height]="280">
-      </app-donut-chart>
-    </mat-card>
-    <mat-card class="donut-chart-item">
-      <app-donut-chart
-        [data]="store.filteredRiskTierDonutData()"
-        [title]="'USECASES BY RISK TIER'"
-        [height]="280">
-      </app-donut-chart>
-    </mat-card>
-  </div>
+  <app-charts-section
+    [stackedAreaData]="store.filteredStackedAreaData()"
+    [valueDonutData]="store.filteredValueDonutData()"
+    [riskTierDonutData]="store.filteredRiskTierDonutData()">
+  </app-charts-section>
 </div>

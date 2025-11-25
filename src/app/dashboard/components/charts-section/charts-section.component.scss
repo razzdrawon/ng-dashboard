@@ -1,0 +1,25 @@
+.chart-container {
+  background: #1E293B;
+  border: 1px solid #334155;
+  margin-bottom: 20px;
+  padding: 16px;
+}
+
+.donut-charts-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.donut-chart-item {
+  background: #1E293B;
+  border: 1px solid #334155;
+  padding: 16px;
+}
+
+@media (max-width: 1200px) {
+  .donut-charts-section {
+    grid-template-columns: 1fr;
+  }
+}
+
