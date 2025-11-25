@@ -2,11 +2,7 @@ import { Component, input, computed, effect, ChangeDetectorRef } from '@angular/
 import { CommonModule } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
-
-export interface StackedAreaData {
-  month: string;
-  [key: string]: string | number;
-}
+import { StackedAreaData } from '../../models/dashboard.models';
 
 @Component({
   selector: 'app-line-chart',

@@ -2,12 +2,7 @@ import { Component, input, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
-
-export interface DonutChartSegment {
-  label: string;
-  value: number;
-  color?: string;
-}
+import { DonutChartSegment } from '../../models/dashboard.models';
 
 @Component({
   selector: 'app-donut-chart',

@@ -1,19 +1,25 @@
-import { Injectable, signal, computed } from '@angular/core';
-import { DashboardDataService, KpiData, StackedAreaData } from '../services/dashboard-data.service';
-import { DonutChartSegment } from '../components/donut-chart/donut-chart.component';
-
-export interface DashboardFilters {
-  organization: string;
-  dateRange: string;
-}
+import { Injectable, signal, computed, inject } from '@angular/core';
+import { DashboardDataService } from '../services/dashboard-data.service';
+import { KpiData, StackedAreaData, DonutChartSegment, DashboardFilters } from '../models/dashboard.models';
+import {
+  DEFAULT_ORGANIZATION,
+  DEFAULT_DATE_RANGE,
+  ORGANIZATIONS,
+  DATE_RANGES,
+  ORGANIZATION_MULTIPLIERS,
+  ORGANIZATION_STACKED_MULTIPLIERS,
+  ORGANIZATION_DONUT_MULTIPLIERS
+} from '../constants/dashboard.constants';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' // Keep as root for now, but could be feature-scoped
 })
 export class DashboardStore {
+  private readonly dataService = inject(DashboardDataService);
+
   // Filter signals
-  private _selectedOrganization = signal<string>('All Organization');
-  private _selectedDateRange = signal<string>('Last 6 months (6 May 2025 - 6 Nov 2025)');
+  private _selectedOrganization = signal<string>(DEFAULT_ORGANIZATION);
+  private _selectedDateRange = signal<string>(DEFAULT_DATE_RANGE);
 
   // Data signals
   private _kpiData = signal<KpiData[]>([]);
@@ -22,13 +28,8 @@ export class DashboardStore {
   private _riskTierDonutData = signal<DonutChartSegment[]>([]);
 
   // Available options signals
-  private _organizations = signal<string[]>(['All Organization', 'Organization A', 'Organization B', 'Organization C']);
-  private _dateRanges = signal<string[]>([
-    'Last 6 months (6 May 2025 - 6 Nov 2025)',
-    'Last 3 months (6 Aug 2025 - 6 Nov 2025)',
-    'Last 12 months (6 Nov 2024 - 6 Nov 2025)',
-    'This year (1 Jan 2025 - 6 Nov 2025)'
-  ]);
+  private _organizations = signal<string[]>(ORGANIZATIONS);
+  private _dateRanges = signal<string[]>(DATE_RANGES);
 
   // Public readonly signals
   readonly selectedOrganization = this._selectedOrganization.asReadonly();
@@ -45,7 +46,7 @@ export class DashboardStore {
     const data = this._kpiData();
     const org = this._selectedOrganization();
     
-    if (org === 'All Organization') {
+    if (org === DEFAULT_ORGANIZATION) {
       return data;
     }
     
@@ -63,7 +64,7 @@ export class DashboardStore {
     filtered = this.applyDateRangeFilter(filtered, dateRange);
     
     // Then apply organization filter
-    if (org !== 'All Organization') {
+    if (org !== DEFAULT_ORGANIZATION) {
       filtered = this.applyOrganizationFilterToStackedData(filtered, org);
     }
     
@@ -74,7 +75,7 @@ export class DashboardStore {
     const data = this._valueDonutData();
     const org = this._selectedOrganization();
     
-    if (org === 'All Organization') {
+    if (org === DEFAULT_ORGANIZATION) {
       return data;
     }
     
@@ -85,14 +86,14 @@ export class DashboardStore {
     const data = this._riskTierDonutData();
     const org = this._selectedOrganization();
     
-    if (org === 'All Organization') {
+    if (org === DEFAULT_ORGANIZATION) {
       return data;
     }
     
     return this.applyOrganizationFilterToDonutData(data, org);
   });
 
-  constructor(private dataService: DashboardDataService) {
+  constructor() {
     this.loadInitialData();
   }
 
@@ -129,16 +130,9 @@ export class DashboardStore {
 
   // Filter methods
   private applyOrganizationFilter(data: KpiData[], org: string): KpiData[] {
-    // Different values for different organizations to make changes visible
-    const orgMultipliers: { [key: string]: number } = {
-      'Organization A': 0.6,
-      'Organization B': 0.75,
-      'Organization C': 0.9
-    };
+    const multiplier = ORGANIZATION_MULTIPLIERS[org] || 1;
     
-    const multiplier = orgMultipliers[org] || 1;
-    
-    return data.map((kpi, index) => {
+    return data.map(kpi => {
       const baseValue = typeof kpi.value === 'string' ? parseInt(kpi.value) : kpi.value;
       const newValue = Math.round(Number(baseValue) * multiplier);
       
@@ -151,14 +145,7 @@ export class DashboardStore {
   }
 
   private applyOrganizationFilterToStackedData(data: StackedAreaData[], org: string): StackedAreaData[] {
-    // Different multipliers for different organizations
-    const orgMultipliers: { [key: string]: number } = {
-      'Organization A': 0.5,
-      'Organization B': 0.65,
-      'Organization C': 0.8
-    };
-    
-    const multiplier = orgMultipliers[org] || 1;
+    const multiplier = ORGANIZATION_STACKED_MULTIPLIERS[org] || 1;
     
     return data.map(item => {
       const adjusted: StackedAreaData = { month: item.month };
@@ -172,36 +159,24 @@ export class DashboardStore {
   }
 
   private applyDateRangeFilter(data: StackedAreaData[], dateRange: string): StackedAreaData[] {
-    // Filter by date range - more visible changes
     if (dateRange.includes('3 months')) {
-      return data.slice(-3); // Last 3 months (SEP, OCT, NOV)
+      return data.slice(-3); // Last 3 months
     } else if (dateRange.includes('12 months')) {
-      // For 12 months, we'd need more data, but for now return all
-      return data;
+      return data; // All data
     } else if (dateRange.includes('This year')) {
       return data; // All data
     }
-    // Default: 6 months (all data we have)
-    return data;
+    return data; // Default: 6 months
   }
 
   private applyOrganizationFilterToDonutData(data: DonutChartSegment[], org: string): DonutChartSegment[] {
-    // Different multipliers for different organizations - more dramatic changes
-    const orgMultipliers: { [key: string]: number } = {
-      'Organization A': 0.35,  // Much smaller
-      'Organization B': 0.55,   // Medium
-      'Organization C': 0.75    // Slightly smaller
-    };
+    const multiplier = ORGANIZATION_DONUT_MULTIPLIERS[org] || 1;
     
-    const multiplier = orgMultipliers[org] || 1;
-    
-    // Also shuffle the order slightly for visual variety
+    // Shuffle order for visual variety
     const shuffled = [...data];
     if (org === 'Organization A') {
-      // Reverse order for Organization A
       shuffled.reverse();
     } else if (org === 'Organization B') {
-      // Move first to last
       shuffled.push(shuffled.shift()!);
     }
     

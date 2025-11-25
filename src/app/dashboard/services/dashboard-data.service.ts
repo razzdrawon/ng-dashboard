@@ -1,20 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { DonutChartSegment } from '../components/donut-chart/donut-chart.component';
-
-export interface KpiData {
-  title: string;
-  value: string | number;
-  change?: number;
-  changeLabel?: string;
-  description?: string;
-  icon?: string;
-}
-
-export interface StackedAreaData {
-  month: string;
-  [key: string]: string | number;
-}
+import { KpiData, StackedAreaData, DonutChartSegment } from '../models/dashboard.models';
 
 @Injectable({
   providedIn: 'root'
