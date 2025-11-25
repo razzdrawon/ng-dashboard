@@ -6,7 +6,7 @@ Once the basic templated was generated, I started adding folders and basic empty
 
 Then I started adding every part that I saw as new feature in the exercise screen, as adding the cards for the KPIs, cards for the charts and the drop-down for filters
 
-During every iteration of adding these features, I was validating by looking at the generated code and generated output by running the project. So that way I started adjusting the approach taken, I figured out some ngModules in the project, so I ask to change and use standalone, or reducing @Inputs by using a signals based states (I also considered and evaluated if using NgRx was needed or better for this project but it was not the case). 
+During every iteration of adding these features, I was validating by looking at the generated code and generated output by running the project. So that way I started adjusting the approach taken, I figured out some ngModules in the project, so I ask to change and use standalone, or reducing @Inputs by using a signals based states (I also considered and evaluated if using NgRx was needed or better for this project but it was not the case). Also checking it was using computed() for filters.
 
 When running project I made sure it looked like what I was expecting, and in those iterations multiple times I had to ask to adjust data, sizes, or change the libraries used, like implementing angular material and ng2-charts. Iterations continued till I also evaluated performance and testing and so on… 
 
