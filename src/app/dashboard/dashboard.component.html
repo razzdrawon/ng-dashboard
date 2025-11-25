@@ -44,7 +44,7 @@
       [data]="store.filteredStackedAreaData()"
       [title]="'USECASE DEVELOPMENT OVER TIME'"
       [subtitle]="'Usecases deployed by Business Unit'"
-      [height]="400">
+      [height]="300">
     </app-line-chart>
   </mat-card>
 
@@ -54,14 +54,14 @@
       <app-donut-chart
         [data]="store.filteredValueDonutData()"
         [title]="'USECASES BY VALUE'"
-        [height]="350">
+        [height]="280">
       </app-donut-chart>
     </mat-card>
     <mat-card class="donut-chart-item">
       <app-donut-chart
         [data]="store.filteredRiskTierDonutData()"
         [title]="'USECASES BY RISK TIER'"
-        [height]="350">
+        [height]="280">
       </app-donut-chart>
     </mat-card>
   </div>

@@ -186,16 +186,26 @@ export class DashboardStore {
   }
 
   private applyOrganizationFilterToDonutData(data: DonutChartSegment[], org: string): DonutChartSegment[] {
-    // Different multipliers for different organizations
+    // Different multipliers for different organizations - more dramatic changes
     const orgMultipliers: { [key: string]: number } = {
-      'Organization A': 0.55,
-      'Organization B': 0.7,
-      'Organization C': 0.85
+      'Organization A': 0.35,  // Much smaller
+      'Organization B': 0.55,   // Medium
+      'Organization C': 0.75    // Slightly smaller
     };
     
     const multiplier = orgMultipliers[org] || 1;
     
-    return data.map(segment => ({
+    // Also shuffle the order slightly for visual variety
+    const shuffled = [...data];
+    if (org === 'Organization A') {
+      // Reverse order for Organization A
+      shuffled.reverse();
+    } else if (org === 'Organization B') {
+      // Move first to last
+      shuffled.push(shuffled.shift()!);
+    }
+    
+    return shuffled.map(segment => ({
       ...segment,
       value: Math.round(Number(segment.value) * multiplier)
     }));
