@@ -1,21 +1,63 @@
 <div class="dashboard-container">
-  <h1>Dashboard</h1>
-  
-  <div class="dashboard-content">
-    <!-- KPI Cards Section -->
-    <div class="kpi-section">
-      <app-kpi-card></app-kpi-card>
+  <!-- Header Bar -->
+  <div class="dashboard-header">
+    <div class="header-left">
+      <select class="header-dropdown">
+        <option>Display by Organization</option>
+      </select>
     </div>
-    
-    <!-- Charts Section -->
-    <div class="charts-section">
-      <div class="chart-item">
-        <app-line-chart></app-line-chart>
-      </div>
-      <div class="chart-item">
-        <app-donut-chart></app-donut-chart>
-      </div>
+    <div class="header-right">
+      <select class="header-dropdown">
+        <option>Last 6 months (6 May 2025 - 6 Nov 2025)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Main Title -->
+  <div class="main-title">
+    <h1>{{ selectedOrganization }}</h1>
+    <span class="dropdown-arrow">▼</span>
+  </div>
+
+  <!-- KPI Cards Section -->
+  <div class="kpi-section">
+    @for (kpi of kpiData; track kpi.title) {
+      <app-kpi-card
+        [title]="kpi.title"
+        [value]="kpi.value"
+        [change]="kpi.change ?? 0"
+        [changeLabel]="kpi.changeLabel ?? undefined"
+        [description]="kpi.description ?? undefined"
+        [icon]="kpi.icon ?? undefined">
+      </app-kpi-card>
+    }
+  </div>
+
+  <!-- Stacked Area Chart -->
+  <div class="chart-container">
+    <app-line-chart
+      [data]="stackedAreaData"
+      [title]="'USECASE DEVELOPMENT OVER TIME'"
+      [subtitle]="'Usecases deployed by Business Unit'"
+      [height]="400">
+    </app-line-chart>
+  </div>
+
+  <!-- Donut Charts Section -->
+  <div class="donut-charts-section">
+    <div class="donut-chart-item">
+      <app-donut-chart
+        [data]="valueDonutData"
+        [title]="'USECASES BY VALUE'"
+        [height]="350">
+      </app-donut-chart>
+    </div>
+    <div class="donut-chart-item">
+      <app-donut-chart
+        [data]="riskTierDonutData"
+        [title]="'USECASES BY RISK TIER'"
+        [height]="350">
+      </app-donut-chart>
     </div>
   </div>
 </div>
-

@@ -1,7 +1,22 @@
 <div class="donut-chart-container">
   <h3 class="chart-title">{{ title }}</h3>
-  <div class="chart-placeholder" [style.height.px]="height">
-    <p>Donut chart visualization will be implemented here</p>
+  <div class="chart-content">
+    <div class="chart-placeholder" [style.height.px]="height">
+      <div class="chart-info">
+        <p>Donut Chart</p>
+        <p class="chart-note">Chart visualization will be implemented with a charting library</p>
+      </div>
+    </div>
+    @if (data && data.length > 0) {
+      <div class="chart-legend">
+        @for (segment of data; track segment.label) {
+          <div class="legend-item">
+            <span class="legend-color" [style.background-color]="segment.color || '#6B7280'"></span>
+            <span class="legend-label">{{ segment.label }}</span>
+            <span class="legend-value">{{ segment.value }}</span>
+          </div>
+        }
+      </div>
+    }
   </div>
 </div>
-

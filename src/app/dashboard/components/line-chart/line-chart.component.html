@@ -1,7 +1,24 @@
 <div class="line-chart-container">
-  <h3 class="chart-title">{{ title }}</h3>
+  <div class="chart-header">
+    <h3 class="chart-title">{{ title }}</h3>
+    @if (subtitle) {
+      <p class="chart-subtitle">{{ subtitle }}</p>
+    }
+  </div>
   <div class="chart-placeholder" [style.height.px]="height">
-    <p>Line chart visualization will be implemented here</p>
+    <div class="chart-info">
+      <p>Stacked Area Chart</p>
+      <p class="chart-note">Chart visualization will be implemented with a charting library</p>
+      @if (data && data.length > 0) {
+        <div class="chart-legend">
+          @for (unit of businessUnits; track unit) {
+            <div class="legend-item">
+              <span class="legend-color" [style.background-color]="getColor(unit)"></span>
+              <span>{{ unit }}</span>
+            </div>
+          }
+        </div>
+      }
+    </div>
   </div>
 </div>
-

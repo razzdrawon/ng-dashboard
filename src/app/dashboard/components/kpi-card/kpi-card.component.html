@@ -6,11 +6,16 @@
     }
   </div>
   <div class="kpi-value">{{ value }}</div>
-  <div class="kpi-change" [class.positive]="change >= 0" [class.negative]="change < 0">
+  <div class="kpi-footer">
     @if (change !== 0) {
-      <span>{{ change >= 0 ? '+' : '' }}{{ change }}%</span>
+      <div class="kpi-change" [class.positive]="change >= 0" [class.negative]="change < 0">
+        <span>{{ change >= 0 ? '+' : '' }}{{ change }}</span>
+        <span class="change-label">{{ changeLabel }}</span>
+      </div>
     }
-    <span class="change-label">{{ changeLabel }}</span>
+    @if (description) {
+      <div class="kpi-description">{{ description }}</div>
+    }
   </div>
 </div>
 

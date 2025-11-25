@@ -12,7 +12,8 @@ export class KpiCardComponent {
   @Input() title: string = '';
   @Input() value: string | number = '';
   @Input() change: number = 0;
-  @Input() changeLabel: string = '';
-  @Input() icon: string = '';
+  @Input() changeLabel: string | undefined = undefined;
+  @Input() description: string | undefined = undefined;
+  @Input() icon: string | undefined = undefined;
 }
 
