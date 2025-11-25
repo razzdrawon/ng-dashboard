@@ -87,6 +87,13 @@ Este proyecto evolucionó desde una implementación inicial hasta un código de 
    - Eliminación de valores hardcodeados en favor de constantes
    - Código autodocumentado y fácil de mantener
 
+#### 7. **Suite de Tests Comprehensiva**
+   - 46 tests unitarios implementados y pasando
+   - Cobertura completa de componentes, servicios y store
+   - Tests con Vitest y Angular TestBed
+   - Mocks y spies para aislamiento de pruebas
+   - Tests asíncronos para operaciones RxJS
+
 ### 📊 Resultados
 
 - **Rendimiento**: Mejora significativa con OnPush y Signals
@@ -95,12 +102,64 @@ Este proyecto evolucionó desde una implementación inicial hasta un código de 
 - **Escalabilidad**: Arquitectura preparada para crecimiento
 - **Calidad**: Type safety completo y mejores prácticas aplicadas
 
+## 🧪 Testing
+
+### Suite de Tests
+
+El proyecto incluye una suite completa de tests unitarios con **46 tests pasando** que cubren:
+
+- **DashboardStore** (14 tests)
+  - Inicialización y carga de datos
+  - Acciones de filtrado (organización, rango de fechas)
+  - Manejo de estados de carga y errores
+  - Computación de datos filtrados
+  - Funcionalidad de refresh y limpieza de errores
+
+- **DashboardDataService** (9 tests)
+  - Validación de estructura de datos retornados
+  - Verificación de tipos Observable
+  - Validación de propiedades requeridas
+
+- **Componentes** (23 tests)
+  - `DashboardComponent`: Manejo de eventos y comunicación con store
+  - `KpiCardComponent`: Inputs signals y valores por defecto
+  - `LoadingSpinnerComponent`: Mensajes y tamaños configurables
+  - `ErrorMessageComponent`: Visualización de errores y retry
+
+### Ejecutar Tests
+
+```bash
+# Ejecutar todos los tests
+npm test
+
+# Ejecutar tests en modo watch (desarrollo)
+npm test -- --watch
+
+# Ejecutar tests con cobertura
+npm test -- --coverage
+```
+
+### Framework de Testing
+
+- **Vitest**: Framework moderno y rápido para testing
+- **Angular TestBed**: Para configuración de componentes y servicios
+- **Mocks con vi.fn()**: Para aislamiento de dependencias
+- **Async/Await**: Para manejo de operaciones asíncronas
+
+### Cobertura Actual
+
+- ✅ Store y estado (DashboardStore)
+- ✅ Servicios de datos (DashboardDataService)
+- ✅ Componentes principales (Dashboard, KPI Card, Loading, Error)
+- ✅ Signals e inputs reactivos
+- ✅ Manejo de errores y estados de carga
+
 ## 📝 Scripts
 
 - `npm start` - Servidor de desarrollo
 - `npm run build` - Build producción
 - `npm run watch` - Build en modo watch
-- `npm test` - Tests unitarios
+- `npm test` - Ejecutar suite de tests unitarios
 
 ## 📦 Estructura de Datos
 
