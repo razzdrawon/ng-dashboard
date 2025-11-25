@@ -1,17 +1,17 @@
 <div class="line-chart-container">
   <div class="chart-header">
-    <h3 class="chart-title">{{ title }}</h3>
-    @if (subtitle) {
-      <p class="chart-subtitle">{{ subtitle }}</p>
+    <h3 class="chart-title">{{ title() }}</h3>
+    @if (subtitle()) {
+      <p class="chart-subtitle">{{ subtitle() }}</p>
     }
   </div>
-  <div class="chart-placeholder" [style.height.px]="height">
+  <div class="chart-placeholder" [style.height.px]="height()">
     <div class="chart-info">
       <p>Stacked Area Chart</p>
       <p class="chart-note">Chart visualization will be implemented with a charting library</p>
-      @if (data && data.length > 0) {
+      @if (data().length > 0) {
         <div class="chart-legend">
-          @for (unit of businessUnits; track unit) {
+          @for (unit of businessUnits(); track unit) {
             <div class="legend-item">
               <span class="legend-color" [style.background-color]="getColor(unit)"></span>
               <span>{{ unit }}</span>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export interface StackedAreaData {
@@ -14,23 +14,25 @@ export interface StackedAreaData {
   styleUrl: './line-chart.component.scss'
 })
 export class LineChartComponent {
-  @Input() data: StackedAreaData[] = [];
-  @Input() title: string = 'Line Chart';
-  @Input() subtitle: string = '';
-  @Input() height: number = 300;
+  data = input.required<StackedAreaData[]>();
+  title = input<string>('Line Chart');
+  subtitle = input<string>('');
+  height = input<number>(300);
 
-  get businessUnits(): string[] {
-    if (!this.data || this.data.length === 0) return [];
-    const keys = Object.keys(this.data[0]);
+  businessUnits = computed(() => {
+    const dataValue = this.data();
+    if (!dataValue || dataValue.length === 0) return [];
+    const keys = Object.keys(dataValue[0]);
     return keys.filter(key => key !== 'month');
-  }
+  });
 
-  get maxValue(): number {
-    if (!this.data || this.data.length === 0) return 0;
-    return Math.max(...this.data.map(d => {
-      return this.businessUnits.reduce((sum, unit) => sum + (Number(d[unit]) || 0), 0);
+  maxValue = computed(() => {
+    const dataValue = this.data();
+    if (!dataValue || dataValue.length === 0) return 0;
+    return Math.max(...dataValue.map(d => {
+      return this.businessUnits().reduce((sum, unit) => sum + (Number(d[unit]) || 0), 0);
     }));
-  }
+  });
 
   getColor(unit: string): string {
     const colors: { [key: string]: string } = {

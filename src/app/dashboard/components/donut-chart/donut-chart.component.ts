@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export interface DonutChartSegment {
@@ -15,8 +15,7 @@ export interface DonutChartSegment {
   styleUrl: './donut-chart.component.scss'
 })
 export class DonutChartComponent {
-  @Input() data: DonutChartSegment[] = [];
-  @Input() title: string = 'Donut Chart';
-  @Input() height: number = 300;
+  data = input.required<DonutChartSegment[]>();
+  title = input<string>('Donut Chart');
+  height = input<number>(300);
 }
-

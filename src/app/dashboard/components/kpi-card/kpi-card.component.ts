@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,11 +9,10 @@ import { CommonModule } from '@angular/common';
   styleUrl: './kpi-card.component.scss'
 })
 export class KpiCardComponent {
-  @Input() title: string = '';
-  @Input() value: string | number = '';
-  @Input() change: number = 0;
-  @Input() changeLabel: string | undefined = undefined;
-  @Input() description: string | undefined = undefined;
-  @Input() icon: string | undefined = undefined;
+  title = input.required<string>();
+  value = input.required<string | number>();
+  change = input<number>(0);
+  changeLabel = input<string>();
+  description = input<string>();
+  icon = input<string>();
 }
-

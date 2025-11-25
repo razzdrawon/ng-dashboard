@@ -2,26 +2,36 @@
   <!-- Header Bar -->
   <div class="dashboard-header">
     <div class="header-left">
-      <select class="header-dropdown">
-        <option>Display by Organization</option>
+      <select 
+        class="header-dropdown"
+        [value]="store.selectedOrganization()"
+        (change)="onOrganizationChange($any($event.target).value)">
+        @for (org of store.organizations(); track org) {
+          <option [value]="org">{{ org }}</option>
+        }
       </select>
     </div>
     <div class="header-right">
-      <select class="header-dropdown">
-        <option>Last 6 months (6 May 2025 - 6 Nov 2025)</option>
+      <select 
+        class="header-dropdown"
+        [value]="store.selectedDateRange()"
+        (change)="onDateRangeChange($any($event.target).value)">
+        @for (range of store.dateRanges(); track range) {
+          <option [value]="range">{{ range }}</option>
+        }
       </select>
     </div>
   </div>
 
   <!-- Main Title -->
   <div class="main-title">
-    <h1>{{ selectedOrganization }}</h1>
+    <h1>{{ store.selectedOrganization() }}</h1>
     <span class="dropdown-arrow">▼</span>
   </div>
 
   <!-- KPI Cards Section -->
   <div class="kpi-section">
-    @for (kpi of kpiData; track kpi.title) {
+    @for (kpi of store.filteredKpiData(); track kpi.title) {
       <app-kpi-card
         [title]="kpi.title"
         [value]="kpi.value"
@@ -36,7 +46,7 @@
   <!-- Stacked Area Chart -->
   <div class="chart-container">
     <app-line-chart
-      [data]="stackedAreaData"
+      [data]="store.filteredStackedAreaData()"
       [title]="'USECASE DEVELOPMENT OVER TIME'"
       [subtitle]="'Usecases deployed by Business Unit'"
       [height]="400">
@@ -47,14 +57,14 @@
   <div class="donut-charts-section">
     <div class="donut-chart-item">
       <app-donut-chart
-        [data]="valueDonutData"
+        [data]="store.filteredValueDonutData()"
         [title]="'USECASES BY VALUE'"
         [height]="350">
       </app-donut-chart>
     </div>
     <div class="donut-chart-item">
       <app-donut-chart
-        [data]="riskTierDonutData"
+        [data]="store.filteredRiskTierDonutData()"
         [title]="'USECASES BY RISK TIER'"
         [height]="350">
       </app-donut-chart>
