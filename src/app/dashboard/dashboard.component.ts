@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
 import { DashboardStore } from './store/dashboard.store';
 import { KpiCardComponent } from './components/kpi-card/kpi-card.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
@@ -12,6 +15,9 @@ import { DonutChartComponent } from './components/donut-chart/donut-chart.compon
   imports: [
     CommonModule,
     FormsModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatCardModule,
     KpiCardComponent,
     LineChartComponent,
     DonutChartComponent

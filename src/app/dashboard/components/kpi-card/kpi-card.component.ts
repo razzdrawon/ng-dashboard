@@ -1,10 +1,11 @@
 import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-kpi-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatCardModule],
   templateUrl: './kpi-card.component.html',
   styleUrl: './kpi-card.component.scss'
 })

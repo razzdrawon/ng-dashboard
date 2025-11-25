@@ -9,46 +9,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
-}
-
-.header-left,
-.header-right {
-  display: flex;
+  margin-bottom: 32px;
   gap: 16px;
 }
 
-.header-dropdown {
-  background: #1E293B;
-  border: 1px solid #334155;
-  border-radius: 6px;
-  padding: 8px 12px;
-  color: #E2E8F0;
-  font-size: 14px;
-  cursor: pointer;
-
-  &:hover {
-    background: #334155;
-  }
-}
-
-.main-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 32px;
-
-  h1 {
-    margin: 0;
-    font-size: 28px;
-    font-weight: 600;
-    color: #F1F5F9;
-  }
-
-  .dropdown-arrow {
-    color: #94A3B8;
-    font-size: 12px;
-  }
+.header-filter {
+  flex: 1;
+  max-width: 300px;
 }
 
 .kpi-section {
@@ -60,10 +27,9 @@
 
 .chart-container {
   background: #1E293B;
-  border-radius: 8px;
-  padding: 24px;
-  margin-bottom: 32px;
   border: 1px solid #334155;
+  margin-bottom: 32px;
+  padding: 24px;
 }
 
 .donut-charts-section {
@@ -74,9 +40,42 @@
 
 .donut-chart-item {
   background: #1E293B;
-  border-radius: 8px;
-  padding: 24px;
   border: 1px solid #334155;
+  padding: 24px;
+}
+
+// Angular Material dark theme overrides
+::ng-deep {
+  .mat-mdc-form-field {
+    --mdc-filled-text-field-container-color: #1E293B;
+    --mdc-outlined-text-field-container-color: #1E293B;
+    --mdc-outlined-text-field-label-text-color: #94A3B8;
+    --mdc-outlined-text-field-input-text-color: #E2E8F0;
+    --mdc-outlined-text-field-outline-color: #334155;
+  }
+
+  .mat-mdc-select-value {
+    color: #E2E8F0;
+  }
+
+  .mat-mdc-option {
+    background-color: #1E293B;
+    color: #E2E8F0;
+    
+    &:hover {
+      background-color: #334155;
+    }
+  }
+
+  .mat-mdc-select-panel {
+    background-color: #1E293B;
+    border: 1px solid #334155;
+  }
+
+  .mat-mdc-card {
+    background-color: #1E293B;
+    color: #E2E8F0;
+  }
 }
 
 @media (max-width: 1200px) {
@@ -98,5 +97,9 @@
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
+  }
+
+  .header-filter {
+    max-width: 100%;
   }
 }
