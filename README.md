@@ -10,6 +10,8 @@ During every iteration of adding these features, I was validating by looking at 
 
 When running project I made sure it looked like what I was expecting, and in those iterations multiple times I had to ask to adjust data, sizes, or change the libraries used, like implementing angular material and ng2-charts. Iterations continued till I also evaluated performance and testing and so on… 
 
+check it out at: https://ng-dashboard-sigma.vercel.app/dashboard
+
 
 # NgDashboard
 
